@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Campeonato Handebol Team 2</title>
+  <style>
+    body { font-family: Arial, sans-serif; background:#111; color:#fff; text-align:center; }
+    h1 { color:#0ff; }
+    table { width:80%; margin:20px auto; border-collapse:collapse; }
+    th, td { border:1px solid #555; padding:8px; }
+    th { background:#222; }
+    button { margin:5px; padding:8px 12px; background:#0ff; border:none; border-radius:6px; cursor:pointer; }
+    button:hover { background:#0cc; }
+    input { padding:6px; margin:4px; }
+    .card { background:#222; padding:15px; margin:20px auto; border-radius:10px; width:85%; }
+  </style>
+</head>
+<body>
+  <h1>🏆 Campeonato Handebol Team 2</h1>
+
+  <div class="card">
+    <h2>📊 Tabela</h2>
+    <table id="times">
+      <tr><th>Time</th><th>Pontos</th></tr>
+      <tr><td>Handeboll Kids</td><td>3</td></tr>
+    </table>
+    <input type="text" id="nomeTime" placeholder="Nome do time">
+    <input type="number" id="pontosTime" placeholder="Pontos">
+    <button onclick="addTime()">Adicionar Time</button>
+  </div>
+
+  <div class="card">
+    <h2>⚡ Artilharia</h2>
+    <table id="artilharia">
+      <tr><th>Jogador</th><th>Gols</th></tr>
+      <tr><td>Pedro</td><td>5</td></tr>
+    </table>
+    <input type="text" id="nomeJogador" placeholder="Nome do jogador">
+    <input type="number" id="golsJogador" placeholder="Gols">
+    <button onclick="addJogador()">Adicionar Jogador</button>
+  </div>
+
+<script>
+  function addTime(){
+    let nome = document.getElementById("nomeTime").value;
+    let pontos = document.getElementById("pontosTime").value;
+    if(nome && pontos){
+      let tabela = document.getElementById("times");
+      let row = tabela.insertRow();
+      row.insertCell(0).innerHTML = nome;
+      row.insertCell(1).innerHTML = pontos;
+    }
+  }
+
+  function addJogador(){
+    let nome = document.getElementById("nomeJogador").value;
+    let gols = document.getElementById("golsJogador").value;
+    if(nome && gols){
+      let tabela = document.getElementById("artilharia");
+      let row = tabela.insertRow();
+      row.insertCell(0).innerHTML = nome;
+      row.insertCell(1).innerHTML = gols;
+    }
+  }
+</script>
+</body>
+</html>
