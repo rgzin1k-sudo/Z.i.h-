@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Campeonato Handebol Team 2</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+      margin: 0;
+      padding: 20px;
+    }
+    h1, h2 {
+      text-align: center;
+    }
+    .container {
+      max-width: 800px;
+      margin: auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 10px;
+      text-align: center;
+    }
+    th {
+      background: #333;
+      color: white;
+    }
+    tr:nth-child(even) {
+      background: #f9f9f9;
+    }
+    button {
+      margin: 5px;
+      padding: 5px 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .add-btn {
+      background: #28a745;
+      color: white;
+    }
+    .edit-btn {
+      background: #ffc107;
+      color: black;
+    }
+    .delete-btn {
+      background: #dc3545;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🏆 Campeonato Handebol Team 2</h1>
+
+    <h2>Tabela de Times</h2>
+    <table id="teamsTable">
+      <tr>
+        <th>Time</th>
+        <th>Pontos</th>
+        <th>Ações</th>
+      </tr>
+    </table>
+    <button class="add-btn" onclick="addTeam()">+ Adicionar Time</button>
+
+    <h2>Artilharia</h2>
+    <table id="playersTable">
+      <tr>
+        <th>Jogador</th>
+        <th>Time</th>
+        <th>Gols</th>
+        <th>Ações</th>
+      </tr>
+    </table>
+    <button class="add-btn" onclick="addPlayer()">+ Adicionar Jogador</button>
+  </div>
+
+  <script>
+    let teams = [
+      { name: "Handeboll Kids", points: 3 }
+    ];
+    let players = [
+      { name: "Pedro", team: "Handeboll Kids", goals: 5 }
+    ];
+
+    function renderTables() {
+      const teamsTable = document.getElementById("teamsTable");
+      teamsTable.innerHTML = `
+        <tr>
+          <th>Time</th>
+          <th>Pontos</th>
+          <th>Ações</th>
+        </tr>`;
+      teams.forEach((team, index) => {
+        teamsTable.innerHTML += `
+          <tr>
+            <td>${team.name}</td>
+            <td>${team.points}</td>
+            <td>
+              <button class="edit-btn" onclick="editTeam(${index})">Editar</button>
+              <button class="delete-btn" onclick="deleteTeam(${index})">Excluir</button>
+            </td>
+          </tr>`;
+      });
+
+      const playersTable = document.getElementById("playersTable");
+      playersTable.innerHTML = `
+        <tr>
+          <th>Jogador</th>
+          <th>Time</th>
+          <th>Gols</th>
+          <th>Ações</th>
+        </tr>`;
+      players.forEach((player, index) => {
+        playersTable.innerHTML += `
+          <tr>
+            <td>${player.name}</td>
+            <td>${player.team}</td>
+            <td>${player.goals}</td>
+            <td>
+              <button class="edit-btn" onclick="editPlayer(${index})">Editar</button>
+              <button class="delete-btn" onclick="deletePlayer(${index})">Excluir</button>
+            </td>
+          </tr>`;
+      });
+    }
+
+    function addTeam() {
+      const name = prompt("Nome do time:");
+      const points = parseInt(prompt("Pontos iniciais:"), 10) || 0;
+      if (name) {
+        teams.push({ name, points });
+        renderTables();
+      }
+    }
+
+    function editTeam(index) {
+      const name = prompt("Novo nome do time:", teams[index].name);
+      const points = parseInt(prompt("Novos pontos:", teams[index].points), 10);
+      if (name) {
+        teams[index] = { name, points };
+        renderTables();
+      }
+    }
+
+    function deleteTeam(index) {
+      if (confirm("Deseja excluir esse time?")) {
+        teams.splice(index, 1);
+        renderTables();
+      }
+    }
+
+    function addPlayer() {
+      const name = prompt("Nome do jogador:");
+      const team = prompt("Time do jogador:");
+      const goals = parseInt(prompt("Gols iniciais:"), 10) || 0;
+      if (name && team) {
+        players.push({ name, team, goals });
+        renderTables();
+      }
+    }
+
+    function editPlayer(index) {
+      const name = prompt("Novo nome do jogador:", players[index].name);
+      const team = prompt("Novo time:", players[index].team);
+      const goals = parseInt(prompt("Novos gols:", players[index].goals), 10);
+      if (name && team) {
+        players[index] = { name, team, goals };
+        renderTables();
+      }
+    }
+
+    function deletePlayer(index) {
+      if (confirm("Deseja excluir esse jogador?")) {
+        players.splice(index, 1);
+        renderTables();
+      }
+    }
+
+    renderTables();
+  </script>
+</body>
+</html>
